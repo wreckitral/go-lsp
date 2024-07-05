@@ -22,7 +22,12 @@ func main() {
 
     handler = protocol.Handler{
         Initialize: initialize,
+        Shutdown: shutdown,
     }
+
+    server := server.NewServer(&handler, lsName, true)
+
+    server.RunStdio()
 }
 
 func initialize(context *glsp.Context, params *protocol.InitializeParams) (any, error) {
