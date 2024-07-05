@@ -4,12 +4,13 @@
 package main
 
 import (
-    "github.com/tliron/commonlog" // for logging
-    "github.com/tliron/glsp" // lsp SDK written in go
-    protocol "github.com/tliron/glsp/protocol_3_16" // the protocol
-    "github.com/tliron/glsp/server" // the server
+	"github.com/tliron/commonlog"                   // for logging
+	"github.com/tliron/glsp"                        // lsp SDK written in go
+	protocol "github.com/tliron/glsp/protocol_3_16" // the protocol
+	"github.com/tliron/glsp/server"                 // the server
+	"github.com/wreckitral/go-lsp/handlers"
 
-    _ "github.com/tliron/commonlog/simple"
+	_ "github.com/tliron/commonlog/simple"
 )
 
 const lsName = "Emoji Autocomplete Language Server"
@@ -23,6 +24,7 @@ func main() {
     handler = protocol.Handler{
         Initialize: initialize,
         Shutdown: shutdown,
+        TextDocumentCompletion: handlers.TextDocumentCompletion,
     }
 
     server := server.NewServer(&handler, lsName, true)
